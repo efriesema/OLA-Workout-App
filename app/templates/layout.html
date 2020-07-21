@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+
+<title>{{title}}</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Chrome, Firefox OS, Opera and Vivaldi -->
+<meta name="theme-color" content="#6b7178">
+<!-- Windows Phone -->
+<meta name="msapplication-TileColor" content="#b10202">
+<meta name="msapplication-TileImage" content="static/images/headcode/start-screen-tile.png">
+<meta name="format-detection" content="telephone=no">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#6b7178">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="static/images/headcode/apple-touch-icon.png">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Favicon -->
+<link rel="shortcut icon" href="static/images/headcode/favicon.ico" type="image/vnd.microsoft.icon">
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Google Fonts -->
+<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700|Roboto+Condensed:400,100,300,700|Roboto+Mono|Roboto+Slab:400,100,300,400,700" media="all" />
+<!-- Font Awesome -->
+<link rel='stylesheet' id='mars-font-awesome-4-css'  href='http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.9.4' type='text/css' media='all' />
+
+<link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<!-- Template CSS -->
+<link type="text/css" rel="stylesheet" href="static/css/bootstrap-4-alpha.css" media="all">
+<link type="text/css" rel="stylesheet" href="static/css/base.css" media="all">
+<link type="text/css" rel="stylesheet" href="static/css/layout.css" media="all">
+<link type="text/css" rel="stylesheet" href="static/css/content.css" media="all">
+
+</head>
+
+<body class="navbar-is-fixed-top html not-front node-type-secondary-page">
+
+
+
+
+{% include "includes/header.html" %}
+{% block content %}
+{% endblock %}
+{% include "includes/footer.html" %}
+
+
+<div id="modal-menu-overlay"></div>
+
+<!-- jQuery -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+
+<!-- Bootstrap -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Template JS -->
+<script src="static/js/gen-functions.js"></script>
+<script src="static/js/global.js"></script>
+</body>
+</html>

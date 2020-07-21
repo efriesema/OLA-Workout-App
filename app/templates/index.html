@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% block content %}
+   
+<div id="content">
+  <div id="content-main" role="main" aria-label="main content">
+    <div class="region region-content">
+
+      <!--CONTENT BEGINS-->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <h3 class="clear-margin-top">Athlete Data Entry Home</h3>
+              <p>This is the main page for UNLV athletes to enter their workout information. They can participate in team workouts or individually. Using any available device to enter data.</p>
+            </div><!--/.col-xs-12-->
+            
+          	<div class="col-md-3">
+              <div class="click-region">
+                <div class="click-region-link"><a href="#">Team Login</a></div>
+                <div class="card">
+                  <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
+                  <div class="card-block">                   
+                      <h4 class="card-title" aria-hidden="true">Team Login</h4>
+                      <div>Login when a new team is beginning to use the weight room.  Individual athletes do not need to login once the team has logged in.</div>                    
+                  </div><!--/.card-block-->
+                </div><!--/.card-->
+              </div><!--/.click-region-->
+            </div><!--/.col-md-4-->
+            
+            <div class="col-md-3">
+              <div class="click-region">
+                <div class="click-region-link"><a href="{{url_for('entry')}}">Exercise Entry</a></div>
+                <div class="card">
+                  <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
+                  <div class="card-block">
+                    <h4 class="card-title" aria-hidden="true">Exercise Entry</h4>
+                    <div>Hit this when you are ready to begin working out.</div>
+                  </div><!--/.card-block-->
+                </div><!--/.card-->
+              </div><!--/.click-region-->
+            </div><!--/.col-md-4-->
+            <div class="col-md-3">
+              <div class="click-region">
+                <div class="click-region-link"><a href="{{url_for('workout')}}">Workout Report</a></div>
+                <div class="card">
+                  <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
+                  <div class="card-block">
+                    <h4 class="card-title" aria-hidden="true">Workout Report</h4>
+                    <div>This provides a complete report of all the exercise performed in the current session.</div>
+                  </div><!--/.card-block-->
+                </div><!--/.card-->
+              </div><!--/.click-region-->
+            </div><!--/.col-md-4-->
+            <div class="col-md-3">
+              <div class="click-region">
+                <div class="click-region-link"><a href="#">Biometric Data</a></div>
+                <div class="card">
+                  <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
+                  <div class="card-block">
+                    <h4 class="card-title" aria-hidden="true">Biometric Data</h4>
+                    <div>Use this to enter any biometric data( height, wegiht, BMI, etc.) for any athlete on the current team.</div>
+                  </div><!--/.card-block-->
+                </div><!--/.card-->
+              </div><!--/.click-region-->
+            </div><!--/.col-md-4-->
+            <div class="col-xs-12">
+              <h4>This is for any additional athlete information</h4>
+              <p class="clear-margin-bottom">Use this section for any advice for athletes relevant to the current workout session. Be sure tologout the team once everyone has completed their workout.</p>
+          </div><!--/.row-->
+        </div><!--/container-->
+      </section>
+
+      <!--CONTENT ENDS-->
+
+    </div><!--/.region-content-->
+  </div><!-- /#content-main-->
+</div><!--/#content-->
+{% endblock %}

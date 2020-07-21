@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Register</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.team_name.label }}<br>
+            {{ form.team_name(size=32) }}<br>
+            {% for error in form.team_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=32) }}<br>
+            {% for error in form.password2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.team_size.label }}<br>
+            {{ form.team_size(size=64) }}<br>
+            {% for error in form.team_size.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.trainer.label }}<br>
+            {{ form.trainer(size=32) }}<br>
+            {% for error in form.trainer.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.trainer_email.label }}<br>
+            {{ form.trainer_email(size=64) }}<br>
+            {% for error in form.trainer_email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.athlete_userids.label }}<br>
+            {{ form.athlete_useridsl(size=128) }}<br>
+            {% for error in form.athlete_userids.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

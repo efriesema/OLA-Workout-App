@@ -1,0 +1,57 @@
+<div id="skip-link">
+  <a href="#main-content" class="element-invisible element-focusable sr-only sr-only-focusable" tabindex="1">Skip to main content</a>
+</div><!--/#skip-link-->
+
+<header role="banner" aria-label="header">
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-top">
+        <div class="container">
+          <div class="row">
+            <div class="unlv-name col-xs-5">
+              <a href="https://www.unlv.edu" tabindex="-1" role="presentation" aria-hidden="true">University of Nevada, Las Vegas</a>
+            </div><!--end .unlv-name-->
+            <div id="dropdown-container" class="col-xs-7">
+              <div id="audience-dropdown-container" class="dropdown">
+                <a class="btn btn-default dropdown-toggle" role="button" id="audience-dropdown" data-toggle="dropdown" aria-haspopup="true" tabindex="7 ">Users <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-right" role="navigation" aria-label="audiences dropdown">
+                  <li><a href="https://www.unlv.edu/athletes">Athletes</a></li>
+                  <li><a href="https://www.unlv.edu/trainingstaff">Training Staff</a></li>
+                </ul>
+              </div><!--/#audience-dropdown-container-->
+              
+            </div><!--/#dropdown-container-->
+          </div><!--/.row-->
+        </div><!--/.container-->
+      </div><!--/.navbar-top-->
+      <div class="navbar-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="menu-button-container">
+              <a role="button" id="menu-button" href="#" tabindex="4" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu" onclick="void(0)"><span class="sr-only" aria-label="open Style Guide menu">Menu</span></a>
+            </div><!--/.menu-button-container-->
+            <div class="website-title">
+              <h1><a href="#" tabindex="3"><span class="short-title">Workout App</span><span class="full-title">Workout Data Entry App</span></a></h1>
+            </div><!--/.website-title-->
+          </div><!--/.row-->
+        </div><!--/.container-->
+      </div><!--/.navbar-bottom-->
+    </nav>
+  </header>
+  
+  <div id="navigation" role="navigation" aria-label="Website Title navigation">
+    <div class="scroller" id="navigation-scroller" tabindex="-1">
+      <div class="nav-close"><a href="#" id="menu-close">close Shortcuts menu</a></div>
+      <h2>Workout App</h2>
+      <ul class="menu-sections">
+        <li class="first last expanded active-trail menu-mlid-11154 active"><a href="{{url_for('index')}}" class="active-trail">Workout App Home</a>
+          <ul class="menu-section-level-2">
+            <li><a href="#">Login</a></li>
+            <li><a href="{{url_for('workout')}}">View Workout</a></li>
+            <li><a href="{{url_for('entry')}}">Add Exercise</a></li>
+            <li><a href="#">Add Biometric Data</a></li>
+  
+          </ul>
+        </li>
+      </ul><!--/.menu-sections-->
+    </div> <!--/.scroller-->
+  </div> <!--/#navigation -->

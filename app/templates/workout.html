@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<div id="content">
+  <div id="content-main" role="main" aria-label="main content">
+    <div class="region region-content">
+
+      <!--CONTENT BEGINS-->
+      <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <section aria-label="Workout Data Page">
+          <div class="container">
+            <h2 class="clear-margins">Workout Data</h2>
+            <p class="lead">Team :  {{team}}, Date :  {{date}}.</p>
+          </div><!--/.container-->
+          <!--/Table begin-->
+          <div class="row">
+            <div class="col-md-12 text-center">
+                  <table style="width:70%; margin-top: 20px; margin-left: auto; margin-right:auto; text-align:left;">
+                      <thead>
+                      <tr>
+                          <th scope="col">Athlete ID</th>
+                          <th scope="col">Exercise Name</th>
+                          <th scope="col">Parameters</th>
+                          <th scope="col">Values</th>
+                          <th scope="col">Time Completed</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <!-- Construct the rest of exercises here -->
+                      {% for exercise in exercises %}
+                        <tr>
+                          <td scope="row">{{exercise.athlete_id}}</td>
+                          <td>{{exercise.exercise_name}}</td>
+                          <td>{% for parameter in exercise.parameters %} {{parameter}}{% if not loop.last %},{% endif %} {% endfor %} </td>
+                          <td>{% for entry in exercise.entries %} {{entry}}{% if not loop.last %},{% endif %} {% endfor %} </td>
+                          <td>{{exercise.timestamp.strftime("%H:%M:%S")}}</td>
+                        </tr>
+                      {% endfor %}
+                    
+                      </tbody>
+                  </table>
+                  <span> {{form.submit}}</span>               
+            </div>
+        </div>
+
+          <!--/Table end-->
+        </section>
+        <section class="bg-gray">
+          <div class="container">
+            <h3 class="clear-margin-top">Workout Program for {{team}}</h3>
+            <p>All athletes must follow proper workout procedure and report their RPE scores for each exercise set </p>
+          </div><!--/.container-->
+        </section>
+      </form>  
+      <!--CONTENT ENDS-->
+
+    </div><!--/.region-content-->
+  </div><!-- /#content-main-->
+</div><!--/#content-->
+{% endblock %}
