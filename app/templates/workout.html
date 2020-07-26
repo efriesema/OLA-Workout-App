@@ -12,8 +12,8 @@
         {{ form.hidden_tag() }}
         <section aria-label="Workout Data Page">
           <div class="container">
-            <h2 class="clear-margins">Workout Data</h2>
-            <p class="lead">Team :  {{team}}, Date :  {{date}}.</p>
+            <h2 class="clear-margins">{{current_user.team_name}} Workout Data</h2>
+            <p class="lead">Date :  {{date}}. Go to <a href="{{url_for('team_profile')}}">{{current_user.team_name}} Team Profile</a>  </p>
           </div><!--/.container-->
           <!--/Table begin-->
           <div class="row">
@@ -42,8 +42,9 @@
                     
                       </tbody>
                   </table>
-                  <span> {{form.submit}}</span>               
-            </div>
+                  <span>{{form.submit}}</span> 
+                    
+            </div>  
         </div>
 
           <!--/Table end-->

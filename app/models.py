@@ -1,21 +1,22 @@
 from datetime import datetime
-from app import db
+from app import db, login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from hashlib import md5
 
-"""
-@login.user_loader      ##Necessary loader function to take id string and convert it into int
+
+@login.user_loader      ##Necessary loader function to take login id string and convert it into int
 def load_user(id):
     return Team.query.get(int(id))
-"""
+
 
 class Team(UserMixin, db.Model):  
     ##  Decribes Team SQLAlchemy database model in terms of fields, properties and relationships,  Team is equivalent of User in many other applications
     ##   because workout data will be entered most often in team sessions as opposed to individual workouts.  Although there is no reason a single user could not 
     ##  use this system for a personal workout
     id = db.Column(db.Integer, primary_key=True)
-    team_name = db.Column(db.String(64), index=True, unique=True)
+    username = db.Column(db.String(64), index=True, unique=True)
+    team_name = db.Column(db.String(64), index=True)
     team_size = db.Column(db.Integer)
     trainer = db.Column(db.String(64))
     trainer_email = db.Column(db.String(120), index=True)
@@ -31,7 +32,7 @@ class Team(UserMixin, db.Model):
         return check_password_hash(self.password_hash,password)
 
     def __repr__(self):
-        return '<Team {}, Trainer {}, Email {}>'.format(self.team_name, self.trainer,self.trainer_email)
+        return '<User {}, Team {}, Team ID {}, Trainer {}, Email {}, Athlete User IDs{}>'.format(self.username, self.team_name, self.id, self.trainer,self.trainer_email, self.athlete_userids)
 
 
 class Workout(db.Model):
@@ -45,4 +46,4 @@ class Workout(db.Model):
     team_id =db.Column(db.Integer, db.ForeignKey('team.id'))
 
     def __repr__(self):
-        return '<Exercise {}>'.format(self.exercise_name)
+        return '<Exercise {}, Team_ID {} >'.format(self.exercise_name, self.team_id)

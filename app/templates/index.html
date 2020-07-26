@@ -14,10 +14,10 @@
               <h3 class="clear-margin-top">Athlete Data Entry Home</h3>
               <p>This is the main page for UNLV athletes to enter their workout information. They can participate in team workouts or individually. Using any available device to enter data.</p>
             </div><!--/.col-xs-12-->
-            
+            {% if current_user.is_anonymous %}
           	<div class="col-md-3">
               <div class="click-region">
-                <div class="click-region-link"><a href="#">Team Login</a></div>
+                <div class="click-region-link"><a href="{{url_for('login')}}">Team Login</a></div>
                 <div class="card">
                   <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
                   <div class="card-block">                   
@@ -27,7 +27,20 @@
                 </div><!--/.card-->
               </div><!--/.click-region-->
             </div><!--/.col-md-4-->
-            
+            {% else %}
+            <div class="col-md-3">
+              <div class="click-region">
+                <div class="click-region-link"><a href="{{url_for('logout')}}">Team Logout</a></div>
+                <div class="card">
+                  <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
+                  <div class="card-block">                   
+                      <h4 class="card-title" aria-hidden="true">Team Logout</h4>
+                      <div>Logout only when team workout session is finished.</div>                    
+                  </div><!--/.card-block-->
+                </div><!--/.card-->
+              </div><!--/.click-region-->
+            </div><!--/.col-md-4-->
+            {% endif %}
             <div class="col-md-3">
               <div class="click-region">
                 <div class="click-region-link"><a href="{{url_for('entry')}}">Exercise Entry</a></div>

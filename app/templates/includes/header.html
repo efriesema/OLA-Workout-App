@@ -45,7 +45,11 @@
       <ul class="menu-sections">
         <li class="first last expanded active-trail menu-mlid-11154 active"><a href="{{url_for('index')}}" class="active-trail">Workout App Home</a>
           <ul class="menu-section-level-2">
-            <li><a href="#">Login</a></li>
+            {% if current_user.is_anonymous %}
+            <li><a href="{{url_for('login')}}">Login</a></li>
+            {% else %} 
+            <li><a href="{{url_for('logout')}}">Logout</a></li>
+            {% endif %}
             <li><a href="{{url_for('workout')}}">View Workout</a></li>
             <li><a href="{{url_for('entry')}}">Add Exercise</a></li>
             <li><a href="#">Add Biometric Data</a></li>

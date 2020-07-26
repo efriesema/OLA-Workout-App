@@ -1,9 +1,17 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>Register</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
+    <h1 style="width:70%; margin-top: 20px; margin-left: auto; margin-right:auto; text-align:left;">{{title}}</h1>
+    <form action="" method="post" novalidate
+    style="width:70%; margin-top: 20px; margin-left: auto; margin-right:auto; text-align:left;">
+    {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
         <p>
             {{ form.team_name.label }}<br>
             {{ form.team_name(size=32) }}<br>
@@ -25,13 +33,7 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
-            {{ form.team_size.label }}<br>
-            {{ form.team_size(size=64) }}<br>
-            {% for error in form.team_size.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        
         <p>
             {{ form.trainer.label }}<br>
             {{ form.trainer(size=32) }}<br>
@@ -47,8 +49,15 @@
             {% endfor %}
         </p>
         <p>
+            {{ form.team_size.label }}<br>
+            {{ form.team_size(size=32) }}<br>
+            {% for error in form.team_size.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
             {{ form.athlete_userids.label }}<br>
-            {{ form.athlete_useridsl(size=128) }}<br>
+            {{ form.athlete_userids(size=128) }}<br>
             {% for error in form.athlete_userids.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}

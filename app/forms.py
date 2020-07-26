@@ -6,7 +6,7 @@ import sys
 
   
 class LoginForm(FlaskForm):
-    team_name = StringField('Team name', validators=[DataRequired()])
+    username = StringField('Team name', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
@@ -24,17 +24,27 @@ class WorkoutForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
+    username = StringField('User name', validators=[DataRequired(), Length(min=6, max=20, message='Please choose a username between 6 and 20 characters.') ])
     team_name = StringField('Team name', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    team_size = IntegerField('Team Size')
     trainer = StringField( 'Trainer name', validators=[DataRequired()])
     trainer_email = StringField( 'Trainer email address', validators=[DataRequired(),Email()])
-    athlete_userids = StringField('Athletes User IDs' )
+    team_size = IntegerField('Team Size')    
+    athlete_userids = StringField('Athlete User IDs' )
     submit = SubmitField('Register')
 
-    def validate_username(self, team_name):
-        team = Team.query.filter_by(team_name=team_name.data).first()
-        if team is not None:
-            raise ValidationError('Please use a different team name.')
+    def validate_username(self, username):
+        user = Team.query.filter_by(username=username.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different user name.')
+
+class TeamProfileForm(FlaskForm):
+    username = StringField('User name')
+    team_name = StringField('Team name')
+    trainer = StringField('Trainer name')
+    trainer_email = StringField( 'Trainer email address', validators=[Email()])
+    team_size = IntegerField('Team Size')    
+    athlete_userids = StringField('Athlete User IDs' )
+    submit = SubmitField('Register')

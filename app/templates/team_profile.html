@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<div id="content">
+  <div id="content-main" role="main" aria-label="main content">
+    <div class="region region-content">
+
+      <!--CONTENT BEGINS-->
+      <form action="" method="get" novalidate
+      style="width:70%; margin-top: 20px; margin-left: auto; margin-right:auto; text-align:left;">
+        <section aria-label="Team Profile Page">
+          <h2 class="clear-margins">Team Profile Page</h2>
+          <p class="lead">Team :  {{current_user.team_name}}, Date :  {{date}}.</p>
+          <h1>Team id : {{current_team.username}}</h1>
+          <div>Team name : {{current_team.team_name}}</div>
+          <div>Trainer : {{current_team.trainer}}</div>
+          <div>Trainer email : {{current_team.trainer_email}}</div>
+          <div>Team size : {{current_team.team_size}}</div>
+          <div>Team Roster</div>
+          {% for athlete in team_roster %}
+          <div>{{athlete}}</div>
+          {% endfor %}
+          <a href="{{url_for('workout')}}">Go to Workout page</a>      
+        </section>
+        <section class="bg-gray">
+          <div class="container">
+            <h3 class="clear-margin-top">Workout Program for {{current_user.team_name}}</h3>
+            <p>All athletes must follow proper workout procedure and report their RPE scores for each exercise set </p>
+          </div><!--/.container-->
+        </section>
+      </form>  
+      <!--CONTENT ENDS-->
+
+    </div><!--/.region-content-->
+  </div><!-- /#content-main-->
+</div><!--/#content-->
+{% endblock %}
+ 
