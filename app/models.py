@@ -28,15 +28,17 @@ class Team(UserMixin, db.Model):
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
     
+
     def check_password(self, password):
         return check_password_hash(self.password_hash,password)
 
+    
     def __repr__(self):
         return '<User {}, Team {}, Team ID {}, Trainer {}, Email {}, Athlete User IDs{}>'.format(self.username, self.team_name, self.id, self.trainer,self.trainer_email, self.athlete_userids)
 
 
 class Workout(db.Model):
-    ## Database schem for a workout.  A workout being defined as a series of exercises  by multiple athletes on the same team
+    ## Database schema for a workout.  A workout being defined as a series of exercises  by multiple athletes on the same team
     id = db.Column(db.Integer, index=True, primary_key=True)
     athlete_id = db.Column(db.String(30))
     exercise_name = db.Column(db.String(50))
@@ -45,5 +47,24 @@ class Workout(db.Model):
     timestamp = db.Column(db.DateTime, index=True,default=datetime.utcnow())
     team_id =db.Column(db.Integer, db.ForeignKey('team.id'))
 
+
     def __repr__(self):
         return '<Exercise {}, Team_ID {} >'.format(self.exercise_name, self.team_id)
+
+class Exercise(db.Model):
+    ## Database schema for exercises based on parameters
+    id = db.Column(db.Integer, index=True, primary_key=True)
+    exercise_name = db.Column(db.String(30))
+    parameter = db.Column(db.String(30))
+    value = db.Column(db.String(20))
+    unit = db.Column(db.String(20))
+
+
+    def get_names():
+        ## returns a list of unique exercise names choice tuples from Exercise table
+        names = db.session.query(Exercise.exercise_name).distinct() 
+        return [(i,i) for i in[value for value, in names]]
+
+
+    def __repr__(self):
+        return '< Exercise {}, Parameter {}, Value {}, Unit {} >'.format(self.exercise_name, self.parameter, self.value, self.unit)

@@ -3,7 +3,7 @@ from werkzeug.urls import url_parse
 from flask_login import current_user, login_user,logout_user, login_required
 from app import app,db
 from app.forms import LoginForm, EntryForm, WorkoutForm, RegistrationForm, TeamProfileForm
-from app.models import Team, Workout
+from app.models import Team, Workout, Exercise
 from datetime import datetime
 import sys
 import json
@@ -40,9 +40,11 @@ def workout():
 @login_required
 def entry():
     print("You are in entry now")
-    form = EntryForm()
+    
     dateString =  datetime.now().strftime("%d-%b-%Y")
     team_roster= current_user.athlete_userids[1:-1].split(",")  #Take the athlete_userids string and split it into a list of athletes
+    names = Exercise.get_names()
+    form = EntryForm(names)
     if form.validate_on_submit():
         if form.weight.data is None:
             flash('Weights must be a valid Integer')
@@ -56,7 +58,7 @@ def entry():
         db.session.add(new_entry)
         db.session.commit()
         return redirect(url_for('workout'))
-    return render_template('entry.html', title="Exercise Entry Form",  team=team,  date= dateString, form=form)
+    return render_template('entry.html', title="Exercise Entry Form",  names=names, team_roster=team_roster,  date= dateString, form=form)
 
 
 @app.route('/login',methods=['GET','POST'])
