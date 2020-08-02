@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError, NumberRange
-from app.models import Team,Workout
+from app.models import Team,Workout,Exercise
 import sys
 
   
@@ -14,10 +14,15 @@ class LoginForm(FlaskForm):
 
 class EntryForm(FlaskForm):
     athlete_id = SelectField('Athlete ID', choices= [('jallen02','jallen02'), ('thicks04','thicks04'),('lmbamo','lmbamo')] ,validators=[DataRequired()])
-    exercise_name = SelectField('Exercise', choices= [('BenchPress','BenchPress'), ('Squats', 'Squats'),('Lat Pull Down', 'Lat Pull Down')] , validators=[DataRequired()])
+    exercise_name = SelectField('Exercise', choices= [('BenchPress01','BenchPress01'), ('Squats01','Squats01'),('LatPullDown01','LatPullDown01')], validators=[DataRequired()],  id='select_ex')
     reps = IntegerField('Reps', validators=[DataRequired()])
     weight = IntegerField('Weight', validators=[DataRequired()])
     submit = SubmitField('Enter Exercise Data')
+
+    def __init__(self, names):
+        super(EntryForm, self).__init__()
+        self.exercise_name.choices = names
+
 
 class WorkoutForm(FlaskForm):
     submit = SubmitField('Add New Exercise')
@@ -35,10 +40,6 @@ class RegistrationForm(FlaskForm):
     athlete_userids = StringField('Athlete User IDs' )
     submit = SubmitField('Register')
 
-    def validate_username(self, username):
-        user = Team.query.filter_by(username=username.data).first()
-        if user is not None:
-            raise ValidationError('Please use a different user name.')
 
 class TeamProfileForm(FlaskForm):
     username = StringField('User name')
