@@ -10,16 +10,16 @@
 <meta name="theme-color" content="#6b7178">
 <!-- Windows Phone -->
 <meta name="msapplication-TileColor" content="#b10202">
-<meta name="msapplication-TileImage" content="static/images/headcode/start-screen-tile.png">
+<meta name="msapplication-TileImage" content="{{url_for('static',filename= 'images/headcode/start-screen-tile.png')}}">
 <meta name="format-detection" content="telephone=no">
 <!-- iOS Safari -->
 <meta name="apple-mobile-web-app-status-bar-style" content="#6b7178">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="apple-touch-icon" href="static/images/headcode/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="{{url_for('static',filename='images/headcode/apple-touch-icon.png')}}">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Favicon -->
-<link rel="shortcut icon" href="static/images/headcode/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="shortcut icon" href="{{url_for('static',filename='images/headcode/favicon.ico')}}" type="image/vnd.microsoft.icon">
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -30,10 +30,10 @@
 
 <link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <!-- Template CSS -->
-<link type="text/css" rel="stylesheet" href="static/css/bootstrap-4-alpha.css" media="all">
-<link type="text/css" rel="stylesheet" href="static/css/base.css" media="all">
-<link type="text/css" rel="stylesheet" href="static/css/layout.css" media="all">
-<link type="text/css" rel="stylesheet" href="static/css/content.css" media="all">
+<link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-4-alpha.css')}}" media="all">
+<link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/base.css')}}" media="all">
+<link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/layout.css')}}" media="all">
+<link type="text/css" rel="stylesheet" href="{{url_for('static',filename='css/content.css')}}" media="all">
 
 </head>
 
@@ -60,7 +60,7 @@
 <!-- Bootstrap -->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- Template JS -->
-<script src="static/js/gen-functions.js"></script>
-<script src="static/js/global.js"></script>
+<script src="{{url_for('static',filename='js/gen-functions.js')}}"></script>
+<script src="{{url_for('static',filename='js/global.js')}}"></script>
 </body>
 </html>

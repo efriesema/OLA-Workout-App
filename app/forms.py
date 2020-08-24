@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, IntegerField, DecimalField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError, NumberRange
 from app.models import Team,Workout,Exercise
 import sys
@@ -13,16 +13,29 @@ class LoginForm(FlaskForm):
 
 
 class EntryForm(FlaskForm):
-    athlete_id = SelectField('Athlete ID', choices= [('jallen02','jallen02'), ('thicks04','thicks04'),('lmbamo','lmbamo')] ,validators=[DataRequired()])
-    exercise_name = SelectField('Exercise', choices= [('BenchPress01','BenchPress01'), ('Squats01','Squats01'),('LatPullDown01','LatPullDown01')], validators=[DataRequired()],  id='select_ex')
-    reps = IntegerField('Reps', validators=[DataRequired()])
-    weight = IntegerField('Weight', validators=[DataRequired()])
-    submit = SubmitField('Enter Exercise Data')
+    athlete_id = SelectField('Athlete ID', validators=[DataRequired()])
+    exercise_name = SelectField('Exercise',  validators=[DataRequired()],  id='select_ex')
+    submit = SubmitField('Choose Athlete and Exercise')
 
-    def __init__(self, names):
+    def __init__(self, names, athletes):
         super(EntryForm, self).__init__()
         self.exercise_name.choices = names
+        self.athlete_id.choices = athletes
 
+class RepsWeightForm(FlaskForm):
+    reps = IntegerField('Reps', validators=[DataRequired(), NumberRange(min=1)])
+    weight = IntegerField('Weight', validators=[DataRequired(), NumberRange(min=1)])
+    submit = SubmitField('Enter Data')
+
+
+class RepsForm(FlaskForm):
+    reps = IntegerField('Reps', validators=[DataRequired(), NumberRange(min=1)])
+    submit = SubmitField('Enter Data')
+
+class RepsAccelForm(FlaskForm):
+    reps = IntegerField('Reps', validators=[DataRequired(), NumberRange(min=1)])
+    acceleration = DecimalField('Acceleration', validators=[DataRequired()])
+    submit = SubmitField('Enter Data')
 
 class WorkoutForm(FlaskForm):
     submit = SubmitField('Add New Exercise')

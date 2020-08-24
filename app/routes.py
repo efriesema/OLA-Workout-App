@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user,logout_user, login_required
 from app import app,db
-from app.forms import LoginForm, EntryForm, WorkoutForm, RegistrationForm, TeamProfileForm
+from app.forms import LoginForm, EntryForm, WorkoutForm, RegistrationForm, TeamProfileForm, RepsWeightForm, RepsForm, RepsAccelForm
 from app.models import Team, Workout, Exercise
 from datetime import datetime
 import sys
@@ -22,12 +22,12 @@ def workout():
             {'athlete_id': "thicks04" , 'exercise_name': 'Bench Press', 'parameters' : '[Reps, Weight]', 'entries' :'[10,185]', "time":'09:25:01' },
             {'athlete_id': "jallen02" , 'exercise_name': 'Bench Press', 'parameters' : '[Reps, Weight]', 'entries' :'[8,195]', "time":'09:27:01'},
             {'athlete_id': "thicks04" , 'exercise_name': 'Bench Press', 'parameters' : '[Reps, Weight]', 'entries' :'[8,205]', "time":'09:29:01'}]"""
-    exercises = Workout.query.all()  #only request exercises logged by current team
+    exercises = Workout.query.filter_by(team_id=current_user.id).all()  # TODO: only request exercises logged by current team
     for exercise in exercises:
         exercise.parameters = exercise.parameters[1:-1].split(",")
         exercise.entries = exercise.entries[1:-1].split(",")
     
-    print("You have entered the workout page.",file =sys.stderr)
+    print("You have entered the workout page.")
     print (exercises)
     form = WorkoutForm()
     if form.is_submitted():
@@ -39,26 +39,48 @@ def workout():
 @app.route('/entry', methods= ['GET','POST'])
 @login_required
 def entry():
-    print("You are in entry now")
-    
+    print("You are in entry now")  
     dateString =  datetime.now().strftime("%d-%b-%Y")
     team_roster= current_user.athlete_userids[1:-1].split(",")  #Take the athlete_userids string and split it into a list of athletes
-    names = Exercise.get_names()
-    form = EntryForm(names)
+    #print(team_roster)
+    athlete_names = [(i,i) for i in team_roster]
+    #print(athlete_names)
+    exercise_names = Exercise.get_names()
+    form = EntryForm(exercise_names,athlete_names)
+    
     if form.validate_on_submit():
-        if form.weight.data is None:
-            flash('Weights must be a valid Integer')
-            return redirect(url_for('entry'))
-        if form.weight.data is None:
-            flash('Reps must be a valid Integer')
-            return redirect(url_for('entry'))
-        new_entry =Workout(athlete_id= form.athlete_id.data, exercise_name= form.exercise_name.data, parameters= '[' +form.weight.name + ',' + form.reps.name + ']',
-                entries = '[' +str(form.weight.data) + ', ' + str(form.reps.data) + ']', timestamp = datetime.utcnow(), team_id = current_user.id)
-        print( new_entry, file=sys.stderr)
+        ex_name= form.exercise_name.data
+        athlete_id= form.athlete_id.data.lstrip(' ')   #strips leading whitespaces from athlete_id
+        return redirect(url_for('second',exercise_name=ex_name,athlete_id=athlete_id))     
+    return render_template('entry.html', title="Exercise Entry Form",  date= dateString, form=form)
+
+@app.route('/<exercise_name>/<athlete_id>', methods = ['GET','POST'])
+@login_required
+def second(exercise_name,athlete_id):
+    if (exercise_name=="BenchPress01" or exercise_name =="DeadLift01"):
+        form = RepsWeightForm() 
+        page = 'repsweight.html'
+    elif (exercise_name == "Burpies01"):
+        form = RepsForm()
+        page = 'reps.html'
+    elif (exercise_name == "LatPullDown01"):
+        form = RepsAccelForm()
+        page = 'repsaccel.html'
+    dateString =  datetime.now().strftime("%d-%b-%Y")
+    if form.validate_on_submit():  
+        if (exercise_name =="BenchPress01" or exercise_name =="DeadLift01"):      
+            new_entry =Workout(athlete_id=athlete_id, exercise_name= exercise_name, parameters= '[' +form.reps.name + ',' + form.weight.name + ']',
+                entries = '[' +str(form.reps.data) + ', ' + str(form.weight.data) + ']', timestamp = datetime.utcnow(), team_id = current_user.id)  
+        elif (exercise_name == "Burpies01"):  
+            new_entry =Workout(athlete_id=athlete_id, exercise_name= exercise_name, parameters= '[' +form.reps.name + ']',
+                entries = '[' +str(form.reps.data) + ']', timestamp = datetime.utcnow(), team_id = current_user.id)  
+        elif (exercise_name == "LatPullDown01"):
+            new_entry =Workout(athlete_id=athlete_id, exercise_name= exercise_name, parameters= '[' +form.reps.name + ',' + form.acceleration.name + ']',
+                entries = '[' +str(form.reps.data) + ', ' + str(form.acceleration.data) + ']', timestamp = datetime.utcnow(), team_id = current_user.id)        
         db.session.add(new_entry)
         db.session.commit()
         return redirect(url_for('workout'))
-    return render_template('entry.html', title="Exercise Entry Form",  names=names, team_roster=team_roster,  date= dateString, form=form)
+    return render_template(page, title= "Exercise Entry Form",  date= dateString, form=form )
 
 
 @app.route('/login',methods=['GET','POST'])
@@ -106,11 +128,10 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/team_profile')
+@app.route('/team_profile/<team_name>')
 @login_required
-def team_profile():
-    current_team = Team.query.filter_by(username=current_user.username).first_or_404()
+def team_profile(team_name):
     dateString =  datetime.now().strftime("%d-%b-%Y")
-    form = TeamProfileForm
+    form = TeamProfileForm()
     team_roster= current_user.athlete_userids[1:-1].split(",")  #Take the athlete_userids string and split it into a list of athletes
-    return render_template('team_profile.html', current_team=current_team, form=form, date=dateString, team_roster=team_roster)
+    return render_template('team_profile.html', team=team_name, form=form, date=dateString, team_roster=team_roster)

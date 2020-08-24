@@ -21,18 +21,18 @@
                   <table style="width:50%; margin-top: 20px; margin-left: auto; margin-right:auto; text-align:left;">
                       <thead>
                       <tr>
-                          <th scope="col">{{form.athlete_id.label}}</th>
-                          <th scope="col">{{form.exercise_name.label}}</th>
+                          <th scope="col">{{form.reps.label}}</th>
+                          <th scope="col">{{form.weight.label}}</th>
                       </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td scope="row">{{form.athlete_id(size=4)}}
-                          {% for error in form.athlete_id.errors %}
+                          <td scope="row">{{form.reps}}
+                          {% for error in form.reps.errors %}
                             <span style="color: red;">[{{ error }}]</span>
                           {% endfor %}</td>
-                          <td>{{form.exercise_name(size=4)}}
-                          {% for error in form.exercise_name.errors %}
+                          <td>{{form.weight}}
+                          {% for error in form.weight.errors %}
                             <span style="color: red;">[{{ error }}]</span>
                           {% endfor %}</td>                           
                           <td>{{form.submit}} </td> 

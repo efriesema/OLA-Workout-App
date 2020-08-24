@@ -36,6 +36,10 @@ class Team(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}, Team {}, Team ID {}, Trainer {}, Email {}, Athlete User IDs{}>'.format(self.username, self.team_name, self.id, self.trainer,self.trainer_email, self.athlete_userids)
 
+    def get_names(self):
+        ## returns a list of unique exercise names choice tuples from Exercise table
+        names = self.query.filter_by(id=current_user.team_id).athlete_userids.first()
+        return [(i,i) for i in [value for value, in names]]
 
 class Workout(db.Model):
     ## Database schema for a workout.  A workout being defined as a series of exercises  by multiple athletes on the same team
@@ -63,7 +67,7 @@ class Exercise(db.Model):
     def get_names():
         ## returns a list of unique exercise names choice tuples from Exercise table
         names = db.session.query(Exercise.exercise_name).distinct() 
-        return [(i,i) for i in[value for value, in names]]
+        return [(i,i) for i in [value for value, in names]]
 
 
     def __repr__(self):
