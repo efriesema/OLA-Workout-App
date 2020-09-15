@@ -1,8 +1,10 @@
 from flask import render_template, flash, redirect, url_for, request
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user,logout_user, login_required
+from wtforms import StringField
+from wtforms_dynamic_fields import WTFormsDynamicFields 
 from app import app,db
-from app.forms import LoginForm, EntryForm, WorkoutForm, RegistrationForm, TeamProfileForm, RepsWeightForm, RepsForm, RepsAccelForm
+from app.forms import LoginForm, EntryForm, WorkoutForm, RegistrationForm, TeamProfileForm, RepsWeightForm, RepsForm, RepsAccelForm, BiometricForm, CustomEntryForm
 from app.models import Team, Workout, Exercise
 from datetime import datetime
 import sys
@@ -17,11 +19,6 @@ def index():
 @app.route('/workout',methods=['GET','POST'])
 @login_required
 def workout():
-    """
-    exercises  = [{'athlete_id': "jallen02" , 'exercise_name': 'Bench Press', 'parameters' : '[Reps, Weight]', 'entries' : '[10,175]', "time":'09:23:01'},
-            {'athlete_id': "thicks04" , 'exercise_name': 'Bench Press', 'parameters' : '[Reps, Weight]', 'entries' :'[10,185]', "time":'09:25:01' },
-            {'athlete_id': "jallen02" , 'exercise_name': 'Bench Press', 'parameters' : '[Reps, Weight]', 'entries' :'[8,195]', "time":'09:27:01'},
-            {'athlete_id': "thicks04" , 'exercise_name': 'Bench Press', 'parameters' : '[Reps, Weight]', 'entries' :'[8,205]', "time":'09:29:01'}]"""
     exercises = Workout.query.filter_by(team_id=current_user.id).all()  # TODO: only request exercises logged by current team
     for exercise in exercises:
         exercise.parameters = exercise.parameters[1:-1].split(",")
@@ -36,15 +33,24 @@ def workout():
     return render_template('workout.html', title="Workout Data Entry App", date = dateString , exercises=exercises, form=form)
 
 
+@app.route('/biometric', methods=['GET','POST'])
+@login_required
+def biometric():  
+    team_roster= current_user.athlete_userids[1:-1].split(",")  #Take the athlete_userids string and split it into a list of athletes
+    athlete_names = [(i,i) for i in team_roster]
+    dateString =  datetime.now().strftime("%d-%b-%Y")
+    form = BiometricForm(athlete_names)
+    if form.validate_on_submit():
+        return redirect(url_for('index'))
+    return render_template('biometric.html', title="Biometrics Entry Form",  date= dateString, form=form)
+
 @app.route('/entry', methods= ['GET','POST'])
 @login_required
 def entry():
     print("You are in entry now")  
     dateString =  datetime.now().strftime("%d-%b-%Y")
     team_roster= current_user.athlete_userids[1:-1].split(",")  #Take the athlete_userids string and split it into a list of athletes
-    #print(team_roster)
     athlete_names = [(i,i) for i in team_roster]
-    #print(athlete_names)
     exercise_names = Exercise.get_names()
     form = EntryForm(exercise_names,athlete_names)
     
@@ -68,15 +74,18 @@ def second(exercise_name,athlete_id):
         page = 'repsaccel.html'
     dateString =  datetime.now().strftime("%d-%b-%Y")
     if form.validate_on_submit():  
-        if (exercise_name =="BenchPress01" or exercise_name =="DeadLift01"):      
-            new_entry =Workout(athlete_id=athlete_id, exercise_name= exercise_name, parameters= '[' +form.reps.name + ',' + form.weight.name + ']',
-                entries = '[' +str(form.reps.data) + ', ' + str(form.weight.data) + ']', timestamp = datetime.utcnow(), team_id = current_user.id)  
+        print(f"Pain area data is [{form.pain_area.data}]")
+        if (exercise_name =="BenchPress01" or exercise_name =="DeadLift01"):  
+            prm_string = f'[{form.reps.name},{form.weight.name},{form.rpe.name},{form.pain_area.name}]'
+            entry_string = f'[{form.reps.data},{form.weight.data},{form.rpe.data},{form.pain_area.data}]'           
         elif (exercise_name == "Burpies01"):  
-            new_entry =Workout(athlete_id=athlete_id, exercise_name= exercise_name, parameters= '[' +form.reps.name + ']',
-                entries = '[' +str(form.reps.data) + ']', timestamp = datetime.utcnow(), team_id = current_user.id)  
+            prm_string = f'[{form.reps.name},{form.rpe.name},{form.pain_area.name}]'
+            entry_string = f'[{form.reps.data},{form.rpe.data},{form.pain_area.data}]'  
         elif (exercise_name == "LatPullDown01"):
-            new_entry =Workout(athlete_id=athlete_id, exercise_name= exercise_name, parameters= '[' +form.reps.name + ',' + form.acceleration.name + ']',
-                entries = '[' +str(form.reps.data) + ', ' + str(form.acceleration.data) + ']', timestamp = datetime.utcnow(), team_id = current_user.id)        
+            prm_string = f'[{form.reps.name},{form.acceleration.data},{form.rpe.name},{form.pain_area.name}]'
+            entry_string = f'[{form.reps.data},{form.acceleration.data},{form.rpe.data},{form.pain_area.data}]' 
+        new_entry =Workout(athlete_id=athlete_id, exercise_name= exercise_name, parameters= prm_string,
+                entries = entry_string, timestamp = datetime.utcnow(), team_id = current_user.id)    
         db.session.add(new_entry)
         db.session.commit()
         return redirect(url_for('workout'))
@@ -131,7 +140,36 @@ def register():
 @app.route('/team_profile/<team_name>')
 @login_required
 def team_profile(team_name):
+    team = current_user
     dateString =  datetime.now().strftime("%d-%b-%Y")
     form = TeamProfileForm()
     team_roster= current_user.athlete_userids[1:-1].split(",")  #Take the athlete_userids string and split it into a list of athletes
-    return render_template('team_profile.html', team=team_name, form=form, date=dateString, team_roster=team_roster)
+    return render_template('team_profile.html', team=team, form=form, date=dateString, team_roster=team_roster)
+
+@app.route("/custom")
+def custom():
+    """
+    Field list for exercise entry form
+    0 = Reps (int)
+    1 = Acceleration(Decimal)
+    2 = Weight(int)
+    3 = RPE(int)
+    4 = Pain (Select)
+    """
+    form = CustomEntryForm()
+    for field in form:
+        print(field.name)
+    removes = [1]        # list of fields you wish to remove from form 
+    for i in removes:
+        if (i==0):
+            del form.reps
+        elif (i==1):
+            del form.acceleration
+        elif (i==2):
+            del form.weight
+        elif (i==3):
+            del form.rpe
+        elif (i==4):
+            del form.pain_area
+    dateString =  datetime.now().strftime("%d-%b-%Y")
+    return render_template('custom.html', title="Custom Entry Form",form=form,date = dateString)

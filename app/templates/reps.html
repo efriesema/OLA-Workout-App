@@ -22,6 +22,8 @@
                       <thead>
                       <tr>
                           <th scope="col">{{form.reps.label}}</th>
+                          <th scope="col">{{form.rpe.label}}</th>
+                          <th scope="col">{{form.pain_area.label}}</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -29,7 +31,12 @@
                           <td scope="row">{{form.reps}}
                           {% for error in form.reps.errors %}
                             <span style="color: red;">[{{ error }}]</span>
-                          {% endfor %}</td>                       
+                          {% endfor %}</td>   
+                          <td>{{form.rpe}}
+                            {% for error in form.rpe.errors %}
+                              <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}</td>  
+                          <td>{{form.pain_area}}</td>                     
                           <td>{{form.submit}} </td> 
                         </tr>                  
                       </tbody>

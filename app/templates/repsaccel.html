@@ -23,6 +23,8 @@
                       <tr>
                           <th scope="col">{{form.reps.label}}</th>
                           <th scope="col">{{form.acceleration.label}}</th>
+                          <th scope="col">{{form.rpe.label}}</th>
+                          <th scope="col">{{form.pain_area.label}}</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -34,7 +36,12 @@
                           <td>{{form.acceleration}}
                           {% for error in form.acceleration.errors %}
                             <span style="color: red;">[{{ error }}]</span>
-                          {% endfor %}</td>                           
+                          {% endfor %}</td>    
+                          <td>{{form.rpe}}
+                            {% for error in form.rpe.errors %}
+                              <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}</td>  
+                          <td>{{form.pain_area}}</td>                       
                           <td>{{form.submit}} </td> 
                         </tr>                  
                       </tbody>

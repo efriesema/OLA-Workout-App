@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<div id="content">
+  <div id="content-main" role="main" aria-label="main content">
+    <div class="region region-content">
+
+      <!--CONTENT BEGINS-->
+      <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <section aria-label="Exercise Entry Page">
+          <div class="container">
+            <h2 class="clear-margins">{{title}}</h2>
+            <p class="lead">Team :  {{current_user.team_name}}, Date :  {{date}}.</p>
+          </div><!--/.container-->
+          <!--/Table begin-->
+          <div class="row">
+            <div class="col-md-12 text-center">
+                  <table style="width:50%; margin-top: 20px; margin-left: auto; margin-right:auto; text-align:left;">
+                      <thead>
+                      <tr>
+                          {% for field in form %}
+                          {% if not loop.last%}<th scope="col"> {% if field.type !='SubmitField' %}{{field.label(size=20)}}{% endif %} </th>{% endif %} 
+                          {% endfor %}
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <tr>>
+                          {% for field in form %}
+                              {% if not loop.last%} 
+                                {% if field.name != 'pain_area'%}
+                                <td>{{field(size =10)}}</td> 
+                                {% else %}
+                                <td>{{field(size =4)}}</td> 
+                                {% endif %}
+                              {% endif %} 
+                          {% endfor %}
+                        </tr>                  
+                      </tbody>
+                  </table>                 
+            </div>
+        </div>
+
+          <!--/Table end-->
+        </section>
+        <section class="bg-gray">
+          <div class="container">
+            <h3 class="clear-margin-top">Workout Program for {{team}}</h3>
+            <p>All athletes must follow proper workout procedure and report their RPE scores for each exercise set </p>
+          </div><!--/.container-->
+        </section>
+      </form>  
+      <!--CONTENT ENDS-->
+
+    </div><!--/.region-content-->
+  </div><!-- /#content-main-->
+</div><!--/#content-->
+{% endblock %}
