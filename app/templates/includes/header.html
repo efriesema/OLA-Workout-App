@@ -14,8 +14,8 @@
               <div id="audience-dropdown-container" class="dropdown">
                 <a class="btn btn-default dropdown-toggle" role="button" id="audience-dropdown" data-toggle="dropdown" aria-haspopup="true" tabindex="7 ">Users <span class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-right" role="navigation" aria-label="audiences dropdown">
-                  <li><a href="https://www.unlv.edu/athletes">Athletes</a></li>
-                  <li><a href="https://www.unlv.edu/trainingstaff">Training Staff</a></li>
+                  <li><a href="{{url_for('index')}}">Athletes</a></li>
+                  <li><a href="{{url_for('trainer_index')}}">Training Staff</a></li>
                 </ul>
               </div><!--/#audience-dropdown-container-->
               
@@ -46,13 +46,13 @@
         <li class="first last expanded active-trail menu-mlid-11154 active"><a href="{{url_for('index')}}" class="active-trail">Workout App Home</a>
           <ul class="menu-section-level-2">
             {% if current_user.is_anonymous %}
-            <li><a href="{{url_for('login')}}">Login</a></li>
+              <li><a href="{{url_for('login')}}">Login</a></li>
             {% else %} 
-            <li><a href="{{url_for('logout')}}">Logout</a></li>
+              <li><a href="{{url_for('logout')}}">Logout</a></li>
             {% endif %}
             <li><a href="{{url_for('workout')}}">View Workout</a></li>
             <li><a href="{{url_for('entry')}}">Add Exercise</a></li>
-            <li><a href="{{url_for('biometric')}}">Add Biometric Data</a></li>
+            <li><a href="#">Athlete Dashboard</a></li>
   
           </ul>
         </li>

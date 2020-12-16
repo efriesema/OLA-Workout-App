@@ -11,7 +11,7 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
-              <h3 class="clear-margin-top">Athlete Data Entry Home</h3>
+              <h3 class="clear-margin-top">Team Home</h3>
               <p>This is the main page for UNLV athletes to enter their workout information. They can participate in team workouts or individually. Using any available device to enter data.</p>
             </div><!--/.col-xs-12-->
             {% if current_user.is_anonymous %}
@@ -67,12 +67,12 @@
             </div><!--/.col-md-4-->
             <div class="col-md-3">
               <div class="click-region">
-                <div class="click-region-link"><a href="{{url_for('biometric')}}">Biometric Data</a></div>
+                <div class="click-region-link"><a href="#">Athlete Dashboard</a></div>
                 <div class="card">
                   <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
                   <div class="card-block">
-                    <h4 class="card-title" aria-hidden="true">Biometric Data</h4>
-                    <div>Use this to enter any biometric data( height, wegiht, BMI, etc.) for any athlete on the current team.</div>
+                    <h4 class="card-title" aria-hidden="true">Dashboard</h4>
+                    <div>Use this to check your Dashboard stats for workout performance.</div>
                   </div><!--/.card-block-->
                 </div><!--/.card-->
               </div><!--/.click-region-->

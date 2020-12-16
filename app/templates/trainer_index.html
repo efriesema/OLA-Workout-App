@@ -11,18 +11,18 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
-              <h3 class="clear-margin-top">Athlete Data Entry Home</h3>
+              <h3 class="clear-margin-top">Trainer Home</h3>
               <p>This is the main page for UNLV athletes to enter their workout information. They can participate in team workouts or individually. Using any available device to enter data.</p>
             </div><!--/.col-xs-12-->
             {% if current_user.is_anonymous %}
           	<div class="col-md-3">
               <div class="click-region">
-                <div class="click-region-link"><a href="{{url_for('login')}}">Team Login</a></div>
+                <div class="click-region-link"><a href="{{url_for('login')}}">Trainer Login</a></div>
                 <div class="card">
                   <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
                   <div class="card-block">                   
-                      <h4 class="card-title" aria-hidden="true">Team Login</h4>
-                      <div>Login when a new team is beginning to use the weight room.  Individual athletes do not need to login once the team has logged in.</div>                    
+                      <h4 class="card-title" aria-hidden="true">Trainer Login</h4>
+                      <div>Login for trainer to access trainer specific fucntion.</div>                    
                   </div><!--/.card-block-->
                 </div><!--/.card-->
               </div><!--/.click-region-->
@@ -30,12 +30,12 @@
             {% else %}
             <div class="col-md-3">
               <div class="click-region">
-                <div class="click-region-link"><a href="{{url_for('logout')}}">Team Logout</a></div>
+                <div class="click-region-link"><a href="{{url_for('logout')}}">Trainer Logout</a></div>
                 <div class="card">
                   <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
                   <div class="card-block">                   
-                      <h4 class="card-title" aria-hidden="true">Team Logout</h4>
-                      <div>Logout only when team workout session is finished.</div>                    
+                      <h4 class="card-title" aria-hidden="true">Trainer Logout</h4>
+                      <div>Logout trainer when finished.</div>                    
                   </div><!--/.card-block-->
                 </div><!--/.card-->
               </div><!--/.click-region-->
@@ -43,24 +43,24 @@
             {% endif %}
             <div class="col-md-3">
               <div class="click-region">
-                <div class="click-region-link"><a href="{{url_for('entry')}}">Exercise Entry</a></div>
+                <div class="click-region-link"><a href="#">New Athlete Entry</a></div>
                 <div class="card">
                   <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
                   <div class="card-block">
-                    <h4 class="card-title" aria-hidden="true">Exercise Entry</h4>
-                    <div>Hit this when you are ready to begin working out.</div>
+                    <h4 class="card-title" aria-hidden="true">New Exercise Entry</h4>
+                    <div>Trainers can enter new workout exercises.</div>
                   </div><!--/.card-block-->
                 </div><!--/.card-->
               </div><!--/.click-region-->
             </div><!--/.col-md-4-->
             <div class="col-md-3">
               <div class="click-region">
-                <div class="click-region-link"><a href="{{url_for('workout')}}">Workout Report</a></div>
+                <div class="click-region-link"><a href="#">Trainer Dashboard</a></div>
                 <div class="card">
                   <img class="card-img-top" src="static/images/weight-lifting-gym-900x607.jpg" alt="Gym-weights">
                   <div class="card-block">
-                    <h4 class="card-title" aria-hidden="true">Workout Report</h4>
-                    <div>This provides a complete report of all the exercise performed in the current session.</div>
+                    <h4 class="card-title" aria-hidden="true">Trainer Dashboard</h4>
+                    <div>This allows the trainers and coaches to access their data via the Splunk dashboard interface</div>
                   </div><!--/.card-block-->
                 </div><!--/.card-->
               </div><!--/.click-region-->
@@ -78,7 +78,7 @@
               </div><!--/.click-region-->
             </div><!--/.col-md-4-->
             <div class="col-xs-12">
-              <h4>This is for any additional athlete information</h4>
+              <h4>This is for any additional athlete or team workout information</h4>
               <p class="clear-margin-bottom">Use this section for any advice for athletes relevant to the current workout session. Be sure to logout the team once everyone has completed their workout.</p>
           </div><!--/.row-->
         </div><!--/container-->

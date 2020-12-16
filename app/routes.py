@@ -14,7 +14,11 @@ import json
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title="Workout Data Entry App | Athletic Department | University of Nevada, Las Vegas")
+    return render_template('athlete_index.html', title="Workout Data Entry App | Athletic Department | University of Nevada, Las Vegas")
+
+@app.route('/trainer_index')
+def trainer_index():
+    return render_template('trainer_index.html', title="Workout Data Entry App | Athletic Department | University of Nevada, Las Vegas")
 
 @app.route('/workout',methods=['GET','POST'])
 @login_required
@@ -34,7 +38,6 @@ def workout():
 
 
 @app.route('/biometric', methods=['GET','POST'])
-@login_required
 def biometric():  
     team_roster= current_user.athlete_userids[1:-1].split(",")  #Take the athlete_userids string and split it into a list of athletes
     athlete_names = [(i,i) for i in team_roster]
